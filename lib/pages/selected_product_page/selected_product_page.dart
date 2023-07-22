@@ -1,6 +1,8 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:shopping_app/data/models/catalog/get/product/product_model.dart';
 
+@RoutePage()
 class SelectedProductPage extends StatelessWidget {
   const SelectedProductPage({
     super.key,
@@ -75,16 +77,16 @@ class SelectedProductPage extends StatelessWidget {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text((discount == 0 || discount == null)
-                        ? ''
-                        : 'Экономия $discount ₽'),
-                    Text(
-                      oldPrice == null ? '' : "$oldPrice ₽",
-                      style: themeData.textTheme.bodySmall?.copyWith(
-                        fontSize: 14,
+                    if (discount != 0 && discount != null)
+                      Text('Экономия $discount ₽'),
+                    if (oldPrice != null)
+                      Text(
+                        "$oldPrice ₽",
+                        style: themeData.textTheme.bodySmall?.copyWith(
+                          fontSize: 14,
+                        ),
+                        textAlign: TextAlign.left,
                       ),
-                      textAlign: TextAlign.left,
-                    ),
                   ],
                 )
               ],
@@ -121,15 +123,14 @@ class SelectedProductPage extends StatelessWidget {
                     ),
                   ],
                 ),
-                Row(
-                  children: [
-                    Text(
-                      (reviewsCount == null && reviewsCount == 0)
-                          ? ''
-                          : 'Отзывов: $reviewsCount',
-                    ),
-                  ],
-                ),
+                if (reviewsCount != null && reviewsCount != 0)
+                  Row(
+                    children: [
+                      Text(
+                        'Отзывов: $reviewsCount',
+                      ),
+                    ],
+                  ),
                 const SizedBox(height: 20),
                 ElevatedButton(
                   onPressed: () {},

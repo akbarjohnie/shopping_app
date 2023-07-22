@@ -1,6 +1,7 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:shopping_app/data/models/catalog/get/product/product_model.dart';
-import 'package:shopping_app/pages/selected_product_page/selected_product_page.dart';
+import 'package:shopping_app/navigation/app_router.dart';
 
 class ProductCardWidget extends StatefulWidget {
   const ProductCardWidget({
@@ -40,24 +41,20 @@ class _ProductCardWidgetState extends State<ProductCardWidget> {
   @override
   Widget build(BuildContext context) {
     final themeData = Theme.of(context);
-
     return Center(
       child: GestureDetector(
-        onTap: () => Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => SelectedProductPage(
-              categoryName: widget.categoryName,
-              image: widget.image,
-              price: widget.price,
-              article: widget.article,
-              brand: widget.brand,
-              discount: widget.discount,
-              oldPrice: widget.oldPrice,
-              id: widget.id,
-              rating: widget.rating,
-              reviewsCount: widget.reviewsCount,
-            ),
+        onTap: () => AutoRouter.of(context).push(
+          SelectedProductRoute(
+            categoryName: widget.categoryName,
+            image: widget.image,
+            price: widget.price,
+            article: widget.article,
+            brand: widget.brand,
+            discount: widget.discount,
+            oldPrice: widget.oldPrice,
+            id: widget.id,
+            rating: widget.rating,
+            reviewsCount: widget.reviewsCount,
           ),
         ),
         child: SizedBox(

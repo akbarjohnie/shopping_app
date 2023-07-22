@@ -1,8 +1,10 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shopping_app/data/repository/products_aka_catalog/products_api.dart';
 import 'package:shopping_app/pages/product_page/widget/product_widget.dart';
 
+@RoutePage()
 class ProductsPage extends StatefulWidget {
   const ProductsPage({super.key});
 
@@ -14,32 +16,8 @@ class _ProductsPageState extends State<ProductsPage> {
   ProductsApi get productsApi => context.read();
 
   Future loadCategories() async {
-    // List<Map<String, dynamic>> data = [];
     try {
       var request = await productsApi.getProducts({});
-
-      // List body = request['results'];
-
-      // for (var e in body) {
-      //   data.add(
-      //     <String, dynamic>{
-      //       'badges': Badges(
-      //         id: e['badges']['id'],
-      //       ),
-      //       'brand': e['brand'] as String,
-      //       'article': e['article'] as String?,
-      //       'discount': num.tryParse(e['discount']),
-      //       'id': int.tryParse(e['id']),
-      //       'name': e['name'] as String?,
-      //       'oldPrice': e['old_price'] as String?,
-      //       'picture': e['picture'] as String?,
-      //       'price': e['price'] as String?,
-      //       'rating': num.tryParse(e['rating']),
-      //       'reviewsCount': int.tryParse(e['reviews_count']),
-      //     },
-      //   );
-      // }
-
       return request['results'];
     } catch (e, stacktrace) {
       debugPrint('Someting went wrong: $e');
@@ -60,30 +38,27 @@ class _ProductsPageState extends State<ProductsPage> {
                 'Товары',
                 style: themeData.textTheme.headlineMedium,
               ),
-              Container(
-                color: const Color(0xFFF9F9F9),
-                // decoration: const BoxDecoration(
-                // boxShadow: [
-                //   BoxShadow(
-                //     color: Color.fromRGBO(0, 0, 0, 0.10),
-                //     spreadRadius: 5,
-                //     blurRadius: 7,
-                //     offset: Offset(0, 3),
-                //   ),
-                // ],
-                // ),
-                child: TextField(
+              const SizedBox(height: 10),
+              DecoratedBox(
+                decoration: const BoxDecoration(
+                  boxShadow: [
+                    BoxShadow(
+                      color: Color.fromRGBO(0, 0, 0, 0.10),
+                      // blurRadius: 1,
+                      // spreadRadius: 1,
+                    )
+                  ],
+                ),
+                child: TextFormField(
                   maxLines: 1,
                   decoration: InputDecoration(
-                    disabledBorder: InputBorder.none,
                     border: InputBorder.none,
-                    contentPadding: const EdgeInsets.symmetric(vertical: 5),
+                    contentPadding: const EdgeInsets.symmetric(vertical: 0),
                     prefix: const Icon(
                       Icons.search,
                     ),
-                    hintText: 'Поиск',
+                    hintText: ' Поиск',
                     hintStyle: themeData.textTheme.headlineSmall,
-                    enabledBorder: InputBorder.none,
                   ),
                 ),
               )

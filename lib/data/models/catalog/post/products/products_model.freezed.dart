@@ -44,19 +44,18 @@ abstract class $ProductsModelCopyWith<$Res> {
           ProductsModel value, $Res Function(ProductsModel) then) =
       _$ProductsModelCopyWithImpl<$Res, ProductsModel>;
   @useResult
-  $Res call({
-    int? id,
-    String? price,
-    num? discount,
-    String? oldPrice,
-    String? name,
-    String? article,
-    String? picture,
-    Badges badges,
-    num? rating,
-    int? reviewsCount,
-    String brand,
-  });
+  $Res call(
+      {int? id,
+      String? price,
+      num? discount,
+      String? oldPrice,
+      String? name,
+      String? article,
+      String? picture,
+      Badges badges,
+      num? rating,
+      int? reviewsCount,
+      String brand});
 
   $BadgesCopyWith<$Res> get badges;
 }
@@ -151,19 +150,18 @@ abstract class _$$_ProductsModelCopyWith<$Res>
       __$$_ProductsModelCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({
-    int? id,
-    String? price,
-    num? discount,
-    String? oldPrice,
-    String? name,
-    String? article,
-    String? picture,
-    Badges badges,
-    num? rating,
-    int? reviewsCount,
-    String brand,
-  });
+  $Res call(
+      {int? id,
+      String? price,
+      num? discount,
+      String? oldPrice,
+      String? name,
+      String? article,
+      String? picture,
+      Badges badges,
+      num? rating,
+      int? reviewsCount,
+      String brand});
 
   @override
   $BadgesCopyWith<$Res> get badges;
@@ -244,19 +242,18 @@ class __$$_ProductsModelCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$_ProductsModel implements _ProductsModel {
-  const _$_ProductsModel({
-    this.id,
-    this.price,
-    this.discount,
-    this.oldPrice,
-    this.name,
-    this.article,
-    this.picture,
-    required this.badges,
-    this.rating,
-    this.reviewsCount,
-    required this.brand,
-  });
+  const _$_ProductsModel(
+      {this.id,
+      this.price,
+      this.discount,
+      this.oldPrice,
+      this.name,
+      this.article,
+      this.picture,
+      required this.badges,
+      this.rating,
+      this.reviewsCount,
+      required this.brand});
 
   factory _$_ProductsModel.fromJson(Map<String, dynamic> json) =>
       _$$_ProductsModelFromJson(json);
@@ -330,19 +327,18 @@ class _$_ProductsModel implements _ProductsModel {
 }
 
 abstract class _ProductsModel implements ProductsModel {
-  const factory _ProductsModel({
-    final int? id,
-    final String? price,
-    final num? discount,
-    final String? oldPrice,
-    final String? name,
-    final String? article,
-    final String? picture,
-    required final Badges badges,
-    final num? rating,
-    final int? reviewsCount,
-    required final String brand,
-  }) = _$_ProductsModel;
+  const factory _ProductsModel(
+      {final int? id,
+      final String? price,
+      final num? discount,
+      final String? oldPrice,
+      final String? name,
+      final String? article,
+      final String? picture,
+      required final Badges badges,
+      final num? rating,
+      final int? reviewsCount,
+      required final String brand}) = _$_ProductsModel;
 
   factory _ProductsModel.fromJson(Map<String, dynamic> json) =
       _$_ProductsModel.fromJson;

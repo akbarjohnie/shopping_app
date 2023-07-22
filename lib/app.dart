@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:shopping_app/pages/home_page.dart';
+import 'package:shopping_app/navigation/app_router.dart';
 
 class MyApp extends StatelessWidget {
-  const MyApp({
+  MyApp({
     super.key,
   });
 
+  final AppRouter _router = AppRouter();
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MaterialApp.router(
+      routerConfig: _router.config(),
       title: 'Shopping App',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
@@ -43,7 +46,6 @@ class MyApp extends StatelessWidget {
         ),
         useMaterial3: true,
       ),
-      home: const Home(),
     );
   }
 }
