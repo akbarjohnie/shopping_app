@@ -1,31 +1,51 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:shopping_app/pages/product_page/products_page.dart';
 
-class MyHomePage extends StatelessWidget {
-  const MyHomePage({
+class Home extends StatelessWidget {
+  const Home({
     super.key,
   });
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: const Text('Home Page'),
-        centerTitle: true,
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const Text(
-              'You have pushed the button this many times:',
+      backgroundColor: Color(0xFFFFFFFF),
+      body: const ProductsPage(),
+      bottomNavigationBar: CupertinoTabBar(
+        currentIndex: 1,
+        items: const [
+          BottomNavigationBarItem(
+            icon: Icon(
+              Icons.backup_table,
             ),
-            Text(
-              'counter was there',
-              style: Theme.of(context).textTheme.headlineMedium,
+            label: 'Витрина',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(
+              CupertinoIcons.search,
             ),
-          ],
-        ),
+            label: 'Каталог',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(
+              CupertinoIcons.cart,
+            ),
+            label: 'Корзина',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(
+              Icons.favorite_outline_outlined,
+            ),
+            label: 'Избранное',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(
+              Icons.person_outline_outlined,
+            ),
+            label: 'Профиль',
+          ),
+        ],
       ),
     );
   }

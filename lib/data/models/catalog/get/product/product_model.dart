@@ -1,5 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:shopping_app/models/catalog/get/categories/categories_model.dart';
+import 'package:shopping_app/data/models/catalog/get/categories/categories_model.dart';
 
 part 'product_model.freezed.dart';
 part 'product_model.g.dart';
