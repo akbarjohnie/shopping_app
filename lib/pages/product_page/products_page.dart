@@ -15,7 +15,7 @@ class ProductsPage extends StatefulWidget {
 class _ProductsPageState extends State<ProductsPage> {
   ProductsApi get productsApi => context.read();
 
-  Future loadCategories() async {
+  Future loadProducts() async {
     try {
       var request = await productsApi.getProducts({});
       return request['results'];
@@ -30,84 +30,98 @@ class _ProductsPageState extends State<ProductsPage> {
   Widget build(BuildContext context) {
     var themeData = Theme.of(context);
     return Scaffold(
-      appBar: AppBar(
-          toolbarHeight: 70,
-          title: Column(
-            children: [
-              Text(
-                'Товары',
-                style: themeData.textTheme.headlineMedium,
-              ),
-              const SizedBox(height: 10),
-              DecoratedBox(
-                decoration: const BoxDecoration(
-                  boxShadow: [
-                    BoxShadow(
-                      color: Color.fromRGBO(0, 0, 0, 0.10),
-                      // blurRadius: 1,
-                      // spreadRadius: 1,
-                    )
-                  ],
-                ),
-                child: TextFormField(
-                  maxLines: 1,
-                  decoration: InputDecoration(
-                    border: InputBorder.none,
-                    contentPadding: const EdgeInsets.symmetric(vertical: 0),
-                    prefix: const Icon(
-                      Icons.search,
-                    ),
-                    hintText: ' Поиск',
-                    hintStyle: themeData.textTheme.headlineSmall,
-                  ),
-                ),
-              )
-            ],
+      body: NestedScrollView(
+        headerSliverBuilder: (_, __) => [
+          SliverAppBar(
+            title: Text(
+              'Товары',
+              style: themeData.textTheme.headlineMedium,
+            ),
+            centerTitle: true,
           ),
-          centerTitle: true),
-      body: FutureBuilder(
-        future: loadCategories(),
-        builder: (context, snapshot) {
-          if (snapshot.data != null) {
-            debugPrint("snapshot ${snapshot.data}");
-            var data = snapshot.data;
-            return GridView.builder(
-              itemCount: data.length,
-              gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-                maxCrossAxisExtent: 220,
-                mainAxisExtent: 250,
-                childAspectRatio: 3 / 2,
-                crossAxisSpacing: 20,
-                mainAxisSpacing: 20,
+          SliverToBoxAdapter(
+            child: Container(
+              // height: 50,
+              padding: EdgeInsets.only(bottom: 5),
+              margin: const EdgeInsets.only(
+                left: 16,
+                top: 5,
+                right: 16,
+                bottom: 5,
               ),
-              itemBuilder: (context, index) {
-                return ProductCardWidget(
-                  id: data[index]["id"],
-                  categoryName: data[index]["name"],
-                  image: data[index]["picture"],
-                  brand: data[index]["brand"],
-                  price: data[index]["price"].toString().substring(
-                        0,
-                        data[index]["price"].toString().length - 2,
+              decoration: const BoxDecoration(
+                boxShadow: [
+                  BoxShadow(
+                    color: Color.fromRGBO(0, 0, 0, 0.10),
+                  ),
+                ],
+              ),
+              child: TextFormField(
+                maxLines: 1,
+                decoration: InputDecoration(
+                  border: InputBorder.none,
+                  contentPadding: const EdgeInsets.symmetric(vertical: 0),
+                  prefix: SizedBox(
+                    width: 50,
+                    // height: 40,
+                    child: Center(
+                      child: IconButton(
+                        onPressed: () {},
+                        icon: const Icon(Icons.search),
                       ),
-                  oldPrice: data[index]["old_price"],
-                  rating: (data[index]['rating'] == 0 ||
-                          data[index]['rating'] == null)
-                      ? 0
-                      : double.tryParse(
-                          data[index]['rating'].toString().substring(0, 3),
+                    ),
+                  ),
+                  hintText: 'Поиск',
+                  hintStyle: themeData.textTheme.headlineSmall?.copyWith(),
+                ),
+              ),
+            ),
+          )
+        ],
+        body: FutureBuilder(
+          future: loadProducts(),
+          builder: (context, snapshot) {
+            if (snapshot.data != null) {
+              // debugPrint("snapshot ${snapshot.data}");
+              var data = snapshot.data;
+              return GridView.builder(
+                itemCount: data.length,
+                gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+                  maxCrossAxisExtent: 220,
+                  mainAxisExtent: 250,
+                  childAspectRatio: 3 / 2,
+                  crossAxisSpacing: 10,
+                  mainAxisSpacing: 5,
+                ),
+                itemBuilder: (context, index) {
+                  return ProductCardWidget(
+                    id: data[index]["id"],
+                    categoryName: data[index]["name"],
+                    image: data[index]["picture"],
+                    brand: data[index]["brand"],
+                    price: data[index]["price"].toString().substring(
+                          0,
+                          data[index]["price"].toString().length - 2,
                         ),
-                  article: data[index]['article'],
-                  discount: data[index]['discount'],
-                  reviewsCount: data[index]['reviews_count'],
-                );
-              },
+                    oldPrice: data[index]["old_price"],
+                    rating: (data[index]['rating'] == 0 ||
+                            data[index]['rating'] == null)
+                        ? 0
+                        : double.tryParse(
+                            data[index]['rating'].toString().substring(0, 3),
+                          ),
+                    article: data[index]['article'],
+                    discount: data[index]['discount'],
+                    reviewsCount: data[index]['reviews_count'],
+                  );
+                },
+              );
+            }
+            return const Center(
+              child: CircularProgressIndicator(),
             );
-          }
-          return const Center(
-            child: CircularProgressIndicator(),
-          );
-        },
+          },
+        ),
       ),
     );
   }

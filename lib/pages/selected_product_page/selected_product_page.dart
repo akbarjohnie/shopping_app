@@ -18,6 +18,7 @@ class SelectedProductPage extends StatelessWidget {
     this.reviewsCount,
     this.brand,
   });
+
   final int? id; // ?
   final String? price;
   final num? discount;
@@ -29,6 +30,7 @@ class SelectedProductPage extends StatelessWidget {
   final num? rating;
   final int? reviewsCount;
   final String? brand;
+
   @override
   Widget build(BuildContext context) {
     var themeData = Theme.of(context);

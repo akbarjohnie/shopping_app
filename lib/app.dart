@@ -25,10 +25,11 @@ class MyApp extends StatelessWidget {
             fontSize: 16,
           ),
           headlineSmall: TextStyle(
-              fontSize: 12,
-              fontWeight: FontWeight.w500,
-              height: 132 / 100,
-              letterSpacing: 1.44),
+            fontSize: 12,
+            fontWeight: FontWeight.w500,
+            height: 132 / 100,
+            letterSpacing: 1.44,
+          ),
           bodyLarge: TextStyle(
             fontSize: 20,
             fontWeight: FontWeight.w500,

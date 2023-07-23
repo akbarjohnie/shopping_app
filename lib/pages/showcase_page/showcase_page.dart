@@ -7,9 +7,17 @@ class ShowcasePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Витрина'),
+      ),
       body: Center(
-        child: Text('Витрина'),
+        child: Container(
+          width: 200,
+          height: 200,
+          color: Colors.green,
+          child: const Text('Витрина'),
+        ),
       ),
     );
   }
