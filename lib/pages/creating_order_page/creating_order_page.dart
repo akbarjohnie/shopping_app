@@ -33,16 +33,15 @@ class _CreatingOrderPageState extends State<CreatingOrderPage> {
               SliverList(
                 delegate: SliverChildListDelegate(
                   [
-                    ProfileInfoWidget(),
-                    ChooseDelivetyWidget(),
-                    const Padding(
-                      padding: EdgeInsets.only(top: 20, bottom: 10),
-                      child: Align(
-                        alignment: Alignment.topLeft,
-                        child: Text('Способы оплаты'),
-                      ),
+                    const ProfileInfoWidget(),
+                    ChooseDelivetyWidget(
+                      visibility: (vis) {
+                        setState(() {
+                          deli = vis;
+                        });
+                      },
                     ),
-                    PaymentWidget(),
+                    if (deli) const PaymentWidget(),
                   ],
                 ),
               )

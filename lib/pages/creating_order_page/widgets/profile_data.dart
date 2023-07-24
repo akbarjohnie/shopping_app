@@ -27,47 +27,41 @@ class _ProfileInfoWidgetState extends State<ProfileInfoWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return const ListBody(children: [
-      Align(
-        alignment: Alignment.topLeft,
-        child: Text('Данные получателя'),
-      ),
-      //TODO: Добавить контроллеры
-      Padding(
-        padding: EdgeInsets.only(
-          top: 10,
-          right: 20,
-          bottom: 10,
-          left: 10,
+    return const ListBody(
+      children: [
+        Align(
+          alignment: Alignment.topLeft,
+          child: Text('Данные получателя'),
         ),
-        child: Column(
-          children: [
-            TextField(
-              decoration: InputDecoration(
-                hintText: 'ФИО',
+        //TODO: Добавить контроллеры
+        Padding(
+          padding: EdgeInsets.only(
+            top: 10,
+            right: 20,
+            bottom: 10,
+            left: 10,
+          ),
+          child: Column(
+            children: [
+              TextField(
+                decoration: InputDecoration(
+                  hintText: 'ФИО',
+                ),
               ),
-            ),
-            TextField(
-              decoration: InputDecoration(
-                hintText: 'Телефон',
+              TextField(
+                decoration: InputDecoration(
+                  hintText: 'Телефон',
+                ),
               ),
-            ),
-            TextField(
-              decoration: InputDecoration(
-                hintText: 'E-mail',
+              TextField(
+                decoration: InputDecoration(
+                  hintText: 'E-mail',
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
-      ),
-      // Padding(
-      //   padding: EdgeInsets.symmetric(vertical: 10),
-      //   child:
-      // ),
-      // Padding(
-      //   padding: EdgeInsets.symmetric(vertical: 10),
-      //   child:
-      // ),
-    ]);
+      ],
+    );
   }
 }
