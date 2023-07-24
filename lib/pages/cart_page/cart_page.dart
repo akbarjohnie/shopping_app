@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shopping_app/data/repository/cart_repo/cart_api.dart';
+import 'package:shopping_app/navigation/app_router.dart';
 
 @RoutePage()
 class CartPage extends StatefulWidget {
@@ -32,6 +33,14 @@ class _CartPageState extends State<CartPage> {
       appBar: AppBar(
         title: const Text('Выбранные товары'),
         centerTitle: true,
+        actions: [
+          IconButton(
+            onPressed: () {},
+            icon: const Icon(
+              Icons.delivery_dining_sharp,
+            ),
+          )
+        ],
       ),
       body: FutureBuilder(
         future: loadCart(),
@@ -39,28 +48,46 @@ class _CartPageState extends State<CartPage> {
           if (snapshot.data != null) {
             var productsData = snapshot.data['products'];
             // debugPrint('cartPage $productsData');
-            return ListView.builder(
-              itemBuilder: (context, index) {
-                var selectedP = productsData[index];
-                debugPrint('Product  ${selectedP['product']}');
-                var amount = selectedP['count'];
-                var productProperties = selectedP['product'];
-                return ListTile(
-                  title: Text(
-                    '${productProperties['name']}',
+            return Stack(
+              alignment: AlignmentDirectional.bottomCenter,
+              fit: StackFit.loose,
+              children: [
+                ListView.builder(
+                  physics: const ScrollPhysics(
+                    parent: AlwaysScrollableScrollPhysics(),
                   ),
-                  subtitle: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text('Количество: $amount'),
-                      Text(
-                        'Цена: $amountх${productProperties['price']}',
+                  itemBuilder: (context, index) {
+                    var selectedP = productsData[index];
+                    // debugPrint('Product  ${selectedP['product']}');
+                    var amount = selectedP['count'];
+                    var productProperties = selectedP['product'];
+                    return ListTile(
+                      title: Text(
+                        '${productProperties['name']}',
                       ),
-                    ],
+                      subtitle: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text('Количество: $amount'),
+                          Text(
+                            'Цена: $amountх${productProperties['price']}',
+                          ),
+                        ],
+                      ),
+                    );
+                  },
+                  itemCount: productsData.length,
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 10.0),
+                  child: ElevatedButton(
+                    onPressed: () {
+                      context.router.push(CreatingOrderRoute());
+                    },
+                    child: const Text('Оформить заказ'),
                   ),
-                );
-              },
-              itemCount: productsData.length,
+                )
+              ],
             );
           }
           return const Center(

@@ -12,7 +12,7 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AutoTabsRouter(
-      lazyLoad: false,
+      lazyLoad: true,
       routes: const [
         ShowcaseTab(),
         CatalogTab(),

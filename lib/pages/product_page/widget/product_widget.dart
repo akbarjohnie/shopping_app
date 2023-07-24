@@ -185,14 +185,17 @@ class _ProductCardWidgetState extends State<ProductCardWidget> {
                                 children: [
                                   Text(widget.categoryName ?? 'Error'),
                                   Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceAround,
                                     children: [
                                       IconButton(
                                         onPressed: () async {
                                           // val -= 1;
                                           // value = ValueNotifier(val);
                                           await cartApi.deleteCart(
-                                            {"product_id": widget.id},
+                                            {
+                                              "product_id": widget.id,
+                                            },
                                           );
                                         },
                                         icon: Text(
@@ -201,17 +204,19 @@ class _ProductCardWidgetState extends State<ProductCardWidget> {
                                         ),
                                         iconSize: 30,
                                       ),
-                                      Container(
-                                        width: 100,
-                                        height: 40,
-                                        child: Center(
-                                          child: Text('$val'),
-                                        ),
-                                      ),
+                                      // Container(
+                                      //   width: 100,
+                                      //   height: 40,
+                                      //   child: Center(
+                                      //     child: Text('$val'),
+                                      //   ),
+                                      // ),
                                       IconButton(
                                         onPressed: () async {
                                           await cartApi.addCart(
-                                            {"product_id": widget.id},
+                                            {
+                                              "product_id": widget.id,
+                                            },
                                           );
                                         },
                                         icon: Text(

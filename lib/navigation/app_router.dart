@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:shopping_app/data/models/catalog/get/product/product_model.dart';
 import 'package:shopping_app/pages/cart_page/cart_page.dart';
 import 'package:shopping_app/pages/categories_page/categories_page.dart';
+import 'package:shopping_app/pages/creating_order_page/creating_order_page.dart';
 import 'package:shopping_app/pages/favourite_page/favourite_page.dart';
 import 'package:shopping_app/pages/home_page.dart';
 import 'package:shopping_app/pages/product_page/products_page.dart';
@@ -55,14 +56,14 @@ class AppRouter extends _$AppRouter {
               page: CartTab.page,
               children: [
                 AutoRoute(
-                  path: 'episodes',
+                  path: 'cart',
                   initial: true,
                   page: CartRoute.page,
                 ),
-                // AutoRoute(
-                //   path: 'episode',
-                //   page: SelectedProductRoute.page,
-                // ),
+                AutoRoute(
+                  path: 'creating-order',
+                  page: CreatingOrderRoute.page,
+                ),
               ],
             ),
             AutoRoute(
