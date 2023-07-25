@@ -43,33 +43,7 @@ class _ProductCardWidgetState extends State<ProductCardWidget> {
 
   bool favourite = false;
 
-  ChangeNotifier? _moneyNotifier;
-
   int val = 0;
-
-  ValueNotifier value = ValueNotifier(int);
-
-  @override
-  void initState() {
-    super.initState();
-    _moneyNotifier = ValueNotifier(value);
-    _moneyNotifier!.addListener(() {
-      value;
-    });
-  }
-
-  @override
-  void didUpdateWidget(covariant ProductCardWidget oldWidget) {
-    super.didUpdateWidget(oldWidget);
-    val;
-  }
-
-  @override
-  void dispose() {
-    _moneyNotifier?.dispose();
-    value.dispose();
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -138,7 +112,7 @@ class _ProductCardWidgetState extends State<ProductCardWidget> {
                           ),
                         ],
                         color: !favourite
-                            ? const Color.fromARGB(255, 39, 213, 45)
+                            ? Colors.deepPurple
                             : const Color(0xFFD63D46),
                       ),
                       color: favourite ? const Color(0xFFD63D46) : Colors.black,
@@ -164,7 +138,6 @@ class _ProductCardWidgetState extends State<ProductCardWidget> {
                         '${widget.price} ₽',
                         style: themeData.textTheme.bodyMedium,
                       ),
-                      // if (widget.oldPrice != null)
                       Text(
                         widget.oldPrice == null ? '' : '${widget.oldPrice} ₽',
                         style: themeData.textTheme.bodySmall,
@@ -190,8 +163,6 @@ class _ProductCardWidgetState extends State<ProductCardWidget> {
                                     children: [
                                       IconButton(
                                         onPressed: () async {
-                                          // val -= 1;
-                                          // value = ValueNotifier(val);
                                           await cartApi.deleteCart(
                                             {
                                               "product_id": widget.id,
@@ -204,13 +175,6 @@ class _ProductCardWidgetState extends State<ProductCardWidget> {
                                         ),
                                         iconSize: 30,
                                       ),
-                                      // Container(
-                                      //   width: 100,
-                                      //   height: 40,
-                                      //   child: Center(
-                                      //     child: Text('$val'),
-                                      //   ),
-                                      // ),
                                       IconButton(
                                         onPressed: () async {
                                           await cartApi.addCart(

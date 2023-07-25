@@ -47,7 +47,7 @@ class _CartPageState extends State<CartPage> {
         builder: (context, snapshot) {
           if (snapshot.data != null) {
             var productsData = snapshot.data['products'];
-            // debugPrint('cartPage $productsData');
+            List<Map<String, dynamic>> order = [];
             return Stack(
               alignment: AlignmentDirectional.bottomCenter,
               fit: StackFit.loose,
@@ -62,6 +62,13 @@ class _CartPageState extends State<CartPage> {
                     var amount = selectedP['count'];
                     var productProperties = selectedP['product'];
                     return ListTile(
+                      onTap: () {
+                        order.add({
+                          'product_id':
+                              productsData[index]['product']['id'].toString(),
+                          'count': productsData[index]['count'],
+                        });
+                      },
                       title: Text(
                         '${productProperties['name']}',
                       ),
@@ -82,11 +89,29 @@ class _CartPageState extends State<CartPage> {
                   padding: const EdgeInsets.only(bottom: 10.0),
                   child: ElevatedButton(
                     onPressed: () {
-                      context.router.push(CreatingOrderRoute());
+                      if (order.isNotEmpty) {
+                        context.router.push(
+                          CreatingOrderRoute(cart: order),
+                        );
+                      }
                     },
                     child: const Text('Оформить заказ'),
                   ),
-                )
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 45.0),
+                  child: Align(
+                    alignment: Alignment.bottomCenter,
+                    child: Text(
+                      'Стоимость корзины: ${snapshot.data['price']}',
+                      style: const TextStyle(
+                        color: Colors.red,
+                        fontWeight: FontWeight.w500,
+                        fontSize: 14,
+                      ),
+                    ),
+                  ),
+                ),
               ],
             );
           }

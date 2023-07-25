@@ -57,6 +57,17 @@ abstract class _$AppRouter extends RootStackRouter {
         child: const CategoriesPage(),
       );
     },
+    CreatingOrderRoute.name: (routeData) {
+      final args = routeData.argsAs<CreatingOrderRouteArgs>(
+          orElse: () => const CreatingOrderRouteArgs());
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: CreatingOrderPage(
+          key: args.key,
+          cart: args.cart,
+        ),
+      );
+    },
     FavouriteRoute.name: (routeData) {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
@@ -106,12 +117,6 @@ abstract class _$AppRouter extends RootStackRouter {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
         child: const ShowcasePage(),
-      );
-    },
-    CreatingOrderRoute.name: (routeData) {
-      return AutoRoutePage<dynamic>(
-        routeData: routeData,
-        child: const CreatingOrderPage(),
       );
     },
   };
@@ -213,6 +218,44 @@ class CategoriesRoute extends PageRouteInfo<void> {
   static const String name = 'CategoriesRoute';
 
   static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
+/// [CreatingOrderPage]
+class CreatingOrderRoute extends PageRouteInfo<CreatingOrderRouteArgs> {
+  CreatingOrderRoute({
+    Key? key,
+    dynamic cart,
+    List<PageRouteInfo>? children,
+  }) : super(
+          CreatingOrderRoute.name,
+          args: CreatingOrderRouteArgs(
+            key: key,
+            cart: cart,
+          ),
+          initialChildren: children,
+        );
+
+  static const String name = 'CreatingOrderRoute';
+
+  static const PageInfo<CreatingOrderRouteArgs> page =
+      PageInfo<CreatingOrderRouteArgs>(name);
+}
+
+class CreatingOrderRouteArgs {
+  const CreatingOrderRouteArgs({
+    this.key,
+    this.cart,
+  });
+
+  final Key? key;
+
+  final dynamic cart;
+
+  @override
+  String toString() {
+    return 'CreatingOrderRouteArgs{key: $key, cart: $cart}';
+  }
 }
 
 /// generated route for
@@ -369,20 +412,6 @@ class ShowcaseRoute extends PageRouteInfo<void> {
         );
 
   static const String name = 'ShowcaseRoute';
-
-  static const PageInfo<void> page = PageInfo<void>(name);
-}
-
-/// generated route for
-/// [CreatingOrderPage]
-class CreatingOrderRoute extends PageRouteInfo<void> {
-  const CreatingOrderRoute({List<PageRouteInfo>? children})
-      : super(
-          CreatingOrderRoute.name,
-          initialChildren: children,
-        );
-
-  static const String name = 'CreatingOrderRoute';
 
   static const PageInfo<void> page = PageInfo<void>(name);
 }

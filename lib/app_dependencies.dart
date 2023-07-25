@@ -5,6 +5,7 @@ import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 import 'package:shopping_app/data/repository/cart_repo/cart_api.dart';
 import 'package:shopping_app/data/repository/categories_repo/categories_api.dart';
 import 'package:shopping_app/data/repository/delivery/deliveries_api.dart';
+import 'package:shopping_app/data/repository/order/order_api.dart';
 import 'package:shopping_app/data/repository/payment/payment_api.dart';
 import 'package:shopping_app/data/repository/products_aka_catalog/products_api.dart';
 import 'package:shopping_app/data/repository/user_info/user_info_api.dart';
@@ -60,6 +61,11 @@ class AppDependencies extends StatelessWidget {
         ),
         Provider(
           create: (context) => PaymentApi(
+            context.read(),
+          ),
+        ),
+        Provider(
+          create: (context) => OrderApi(
             context.read(),
           ),
         ),

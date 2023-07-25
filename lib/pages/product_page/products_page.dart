@@ -42,7 +42,7 @@ class _ProductsPageState extends State<ProductsPage> {
           SliverToBoxAdapter(
             child: Container(
               // height: 50,
-              padding: EdgeInsets.only(bottom: 5),
+              padding: const EdgeInsets.only(bottom: 5),
               margin: const EdgeInsets.only(
                 left: 16,
                 top: 5,
