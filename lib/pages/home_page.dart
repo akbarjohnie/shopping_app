@@ -11,7 +11,7 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AutoTabsRouter(
+    return AutoTabsScaffold(
       lazyLoad: true,
       routes: const [
         ShowcaseTab(),
@@ -24,48 +24,42 @@ class HomePage extends StatelessWidget {
         opacity: animation,
         child: child,
       ),
-      builder: (context, child) {
-        final tabsRouter = AutoTabsRouter.of(context);
-        return Scaffold(
-          body: child,
-          bottomNavigationBar: CupertinoTabBar(
-            currentIndex: tabsRouter.activeIndex,
-            onTap: (index) {
-              tabsRouter.setActiveIndex(index);
-            },
-            items: const [
-              BottomNavigationBarItem(
-                icon: Icon(
-                  Icons.backup_table,
-                ),
-                label: 'Витрина',
+      bottomNavigationBuilder: (_, tabsRouter) {
+        return CupertinoTabBar(
+          currentIndex: tabsRouter.activeIndex,
+          onTap: tabsRouter.setActiveIndex,
+          items: const [
+            BottomNavigationBarItem(
+              icon: Icon(
+                Icons.backup_table,
               ),
-              BottomNavigationBarItem(
-                icon: Icon(
-                  CupertinoIcons.search,
-                ),
-                label: 'Каталог',
+              label: 'Витрина',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(
+                CupertinoIcons.search,
               ),
-              BottomNavigationBarItem(
-                icon: Icon(
-                  CupertinoIcons.cart,
-                ),
-                label: 'Корзина',
+              label: 'Каталог',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(
+                CupertinoIcons.cart,
               ),
-              BottomNavigationBarItem(
-                icon: Icon(
-                  Icons.favorite_outline_outlined,
-                ),
-                label: 'Избранное',
+              label: 'Корзина',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(
+                Icons.favorite_outline_outlined,
               ),
-              BottomNavigationBarItem(
-                icon: Icon(
-                  Icons.person_outline_outlined,
-                ),
-                label: 'Профиль',
+              label: 'Избранное',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(
+                Icons.person_outline_outlined,
               ),
-            ],
-          ),
+              label: 'Профиль',
+            ),
+          ],
         );
       },
     );

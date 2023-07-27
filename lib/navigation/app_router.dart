@@ -23,10 +23,11 @@ class AppRouter extends _$AppRouter {
           page: HomeRoute.page,
           children: [
             AutoRoute(
-              initial: true,
+              path: 'showcase-tab',
               page: ShowcaseTab.page,
               children: [
                 AutoRoute(
+                  initial: true,
                   path: 'showcase',
                   page: ShowcaseRoute.page,
                 ),
@@ -71,14 +72,10 @@ class AppRouter extends _$AppRouter {
               page: FavouriteTab.page,
               children: [
                 AutoRoute(
-                  path: 'episodes',
+                  path: 'favourite',
                   initial: true,
                   page: FavouriteRoute.page,
                 ),
-                // AutoRoute(
-                //   path: 'episode',
-                //   page: SelectedProductRoute.page,
-                // ),
               ],
             ),
             AutoRoute(
@@ -90,10 +87,6 @@ class AppRouter extends _$AppRouter {
                   initial: true,
                   page: ProfileRoute.page,
                 ),
-                // AutoRoute(
-                //   path: 'episode',
-                //   page: SelectedProductRoute.page,
-                // ),
               ],
             ),
           ],

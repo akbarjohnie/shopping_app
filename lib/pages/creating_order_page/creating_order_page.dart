@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shopping_app/data/repository/order/order_api.dart';
@@ -13,7 +14,7 @@ class CreatingOrderPage extends StatefulWidget {
     required this.cart,
   });
 
-  final List<Map<String, dynamic>> cart;
+  final List<List> cart;
 
   @override
   State<CreatingOrderPage> createState() => _CreatingOrderPageState();
@@ -21,6 +22,8 @@ class CreatingOrderPage extends StatefulWidget {
 
 class _CreatingOrderPageState extends State<CreatingOrderPage> {
   OrderApi get orderApi => context.read();
+
+  Dio get dio => context.read();
 
   bool deli = false;
 
@@ -39,6 +42,7 @@ class _CreatingOrderPageState extends State<CreatingOrderPage> {
           'payment_type': 'cash',
         },
       );
+      debugPrint(request);
 
       return request;
     } catch (e, stacktrace) {
@@ -50,7 +54,7 @@ class _CreatingOrderPageState extends State<CreatingOrderPage> {
 
   @override
   Widget build(BuildContext context) {
-    List<Map<String, dynamic>> deliveryCart = widget.cart;
+    List<List> deliveryCart = widget.cart;
     print(deliveryCart);
     return Scaffold(
       appBar: AppBar(
@@ -89,8 +93,17 @@ class _CreatingOrderPageState extends State<CreatingOrderPage> {
                           right: 30,
                         ),
                         child: ElevatedButton(
-                          onPressed: () {
-                            createOrder(deliveryCart);
+                          onPressed: () async {
+                            List<Map<String, dynamic>> abc = [];
+                            for (int i = 0; i < deliveryCart.length; i++) {
+                              abc.add(
+                                {
+                                  "product_id": deliveryCart[i][0],
+                                  "count": deliveryCart[i][1],
+                                },
+                              );
+                            }
+                            await createOrder(abc);
                           },
                           child: const Text(
                             'Заказать',

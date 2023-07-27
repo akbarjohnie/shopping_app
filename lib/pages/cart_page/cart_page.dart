@@ -47,7 +47,7 @@ class _CartPageState extends State<CartPage> {
         builder: (context, snapshot) {
           if (snapshot.data != null) {
             var productsData = snapshot.data['products'];
-            List<Map<String, dynamic>> order = [];
+            List<List> order = [];
             return Stack(
               alignment: AlignmentDirectional.bottomCenter,
               fit: StackFit.loose,
@@ -63,11 +63,12 @@ class _CartPageState extends State<CartPage> {
                     var productProperties = selectedP['product'];
                     return ListTile(
                       onTap: () {
-                        order.add({
-                          'product_id':
-                              productsData[index]['product']['id'].toString(),
-                          'count': productsData[index]['count'],
-                        });
+                        order.add(
+                          [
+                            productsData[index]['product']['id'],
+                            productsData[index]['count'],
+                          ],
+                        );
                       },
                       title: Text(
                         '${productProperties['name']}',
