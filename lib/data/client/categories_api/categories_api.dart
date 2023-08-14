@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:retrofit/http.dart';
-import 'package:shopping_app/data/models/catalog/get/categories/categories_model.dart';
+import 'package:shopping_app/models/catalog/get/categories/categories_model.dart';
 
 part 'categories_api.g.dart';
 

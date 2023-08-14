@@ -19,39 +19,71 @@ class _CartApi implements CartApi {
   String? baseUrl;
 
   @override
-  Future<dynamic> calculateCart(dynamic requestCalculate) async {
+  Future<CalculatedCartModel> calculateCart(
+      dynamic requestCalculateCart) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    final _data = requestCalculate;
-    final _result = await _dio.fetch(_setStreamType<dynamic>(Options(
+    final _data = requestCalculateCart;
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<CalculatedCartModel>(Options(
       method: 'POST',
       headers: _headers,
       extra: _extra,
     )
-        .compose(
-          _dio.options,
-          '/cart/calculate/',
-          queryParameters: queryParameters,
-          data: _data,
-        )
-        .copyWith(
-            baseUrl: _combineBaseUrls(
-          _dio.options.baseUrl,
-          baseUrl,
-        ))));
-    final value = _result.data;
+            .compose(
+              _dio.options,
+              '/cart/calculate/',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            ))));
+    final value = CalculatedCartModel.fromJson(_result.data!);
     return value;
   }
 
   @override
-  Future<dynamic> addCart(dynamic requestAdd) async {
+  Future<List<CalculatedCartModel>> addCart(dynamic cartAdd) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    final _data = requestAdd;
-    final _result = await _dio.fetch(_setStreamType<dynamic>(Options(
+    final _data = cartAdd;
+    final _result = await _dio
+        .fetch<List<dynamic>>(_setStreamType<List<CalculatedCartModel>>(Options(
       method: 'POST',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              '/cart/cart/',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            ))));
+    var value = _result.data!
+        .map((dynamic i) =>
+            CalculatedCartModel.fromJson(i as Map<String, dynamic>))
+        .toList();
+    return value;
+  }
+
+  @override
+  Future<dynamic> putCart(dynamic cartUpdate) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = cartUpdate;
+    final _result = await _dio.fetch(_setStreamType<dynamic>(Options(
+      method: 'PUT',
       headers: _headers,
       extra: _extra,
     )
@@ -71,37 +103,11 @@ class _CartApi implements CartApi {
   }
 
   @override
-  Future<dynamic> putCart(dynamic requestPut) async {
+  Future<dynamic> deleteCart(dynamic cartDelete) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    final _data = requestPut;
-    final _result = await _dio.fetch(_setStreamType<dynamic>(Options(
-      method: 'POST',
-      headers: _headers,
-      extra: _extra,
-    )
-        .compose(
-          _dio.options,
-          '/cart/cart/',
-          queryParameters: queryParameters,
-          data: _data,
-        )
-        .copyWith(
-            baseUrl: _combineBaseUrls(
-          _dio.options.baseUrl,
-          baseUrl,
-        ))));
-    final value = _result.data;
-    return value;
-  }
-
-  @override
-  Future<dynamic> deleteCart(dynamic requestDelete) async {
-    const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
-    final _headers = <String, dynamic>{};
-    final _data = requestDelete;
+    final _data = cartDelete;
     final _result = await _dio.fetch(_setStreamType<dynamic>(Options(
       method: 'DELETE',
       headers: _headers,

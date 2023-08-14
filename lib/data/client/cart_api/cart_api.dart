@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:retrofit/http.dart';
+import 'package:shopping_app/models/cart/calculated_cart.dart';
 
 part 'cart_api.g.dart';
 
@@ -11,22 +12,22 @@ abstract class CartApi {
   }) = _CartApi;
 
   @POST('/cart/calculate/')
-  Future calculateCart(
-    @Body() requestCalculate,
+  Future<CalculatedCartModel> calculateCart(
+    @Body() requestCalculateCart,
   );
 
   @POST('/cart/cart/')
-  Future addCart(
-    @Body() requestAdd,
+  Future<List<CalculatedCartModel>> addCart(
+    @Body() cartAdd,
   );
 
-  @POST('/cart/cart/')
+  @PUT('/cart/cart/')
   Future putCart(
-    @Body() requestPut,
+    @Body() cartUpdate,
   );
 
   @DELETE('/cart/cart/')
   Future deleteCart(
-    @Body() requestDelete,
+    @Body() cartDelete,
   );
 }

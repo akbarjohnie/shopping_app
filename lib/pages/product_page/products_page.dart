@@ -1,7 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:shopping_app/data/repository/products_aka_catalog/products_api.dart';
+import 'package:shopping_app/data/client/products_api/products_api.dart';
 import 'package:shopping_app/pages/product_page/widget/product_widget.dart';
 
 @RoutePage()

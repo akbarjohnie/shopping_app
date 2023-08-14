@@ -31,7 +31,7 @@ class _OrderApi implements OrderApi {
     )
         .compose(
           _dio.options,
-          '/order/order',
+          '/order/order/',
           queryParameters: queryParameters,
           data: _data,
         )

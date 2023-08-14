@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:shopping_app/data/repository/user_info/user_info_api.dart';
+import 'package:shopping_app/data/client/user_info_api/user_info_api.dart';
 
 class ProfileInfoWidget extends StatefulWidget {
   const ProfileInfoWidget({super.key});

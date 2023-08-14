@@ -1,7 +1,8 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:shopping_app/data/repository/cart_repo/cart_api.dart';
+import 'package:shopping_app/data/client/cart_api/cart_api.dart';
+import 'package:shopping_app/models/cart/calculated_cart.dart';
 import 'package:shopping_app/navigation/app_router.dart';
 
 @RoutePage()
@@ -15,7 +16,7 @@ class CartPage extends StatefulWidget {
 class _CartPageState extends State<CartPage> {
   CartApi get cartApi => context.read();
 
-  Future loadCart() async {
+  Future<CalculatedCartModel> loadCart() async {
     try {
       var request = await cartApi.calculateCart({});
 
@@ -23,8 +24,8 @@ class _CartPageState extends State<CartPage> {
     } catch (e, stacktrace) {
       debugPrint('Someting went wrong: $e');
       debugPrint(stacktrace.toString());
+      rethrow;
     }
-    return [];
   }
 
   @override
@@ -45,8 +46,9 @@ class _CartPageState extends State<CartPage> {
       body: FutureBuilder(
         future: loadCart(),
         builder: (context, snapshot) {
-          if (snapshot.data != null) {
-            var productsData = snapshot.data['products'];
+          var data = snapshot.data;
+          if (data != null) {
+            var productsData = data.products;
             List<List> order = [];
             return Stack(
               alignment: AlignmentDirectional.bottomCenter,
@@ -59,26 +61,26 @@ class _CartPageState extends State<CartPage> {
                   itemBuilder: (context, index) {
                     var selectedP = productsData[index];
                     // debugPrint('Product  ${selectedP['product']}');
-                    var amount = selectedP['count'];
-                    var productProperties = selectedP['product'];
+                    var amount = selectedP.count;
+                    var productProperties = selectedP.product;
                     return ListTile(
                       onTap: () {
                         order.add(
                           [
-                            productsData[index]['product']['id'],
-                            productsData[index]['count'],
+                            productsData[index].product.id,
+                            productsData[index].count,
                           ],
                         );
                       },
                       title: Text(
-                        '${productProperties['name']}',
+                        productProperties.name,
                       ),
                       subtitle: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text('Количество: $amount'),
                           Text(
-                            'Цена: $amountх${productProperties['price']}',
+                            'Цена: $amountх${productProperties.price}',
                           ),
                         ],
                       ),
@@ -104,7 +106,7 @@ class _CartPageState extends State<CartPage> {
                   child: Align(
                     alignment: Alignment.bottomCenter,
                     child: Text(
-                      'Стоимость корзины: ${snapshot.data['price']}',
+                      'Стоимость корзины: ${data.price}',
                       style: const TextStyle(
                         color: Colors.red,
                         fontWeight: FontWeight.w500,

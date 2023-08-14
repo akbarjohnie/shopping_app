@@ -1,8 +1,7 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:shopping_app/data/repository/order/order_api.dart';
+import 'package:shopping_app/data/client/order_api/order_api.dart';
 import 'package:shopping_app/pages/creating_order_page/widgets/choose_delivery.dart';
 import 'package:shopping_app/pages/creating_order_page/widgets/choose_payment.dart';
 import 'package:shopping_app/pages/creating_order_page/widgets/profile_data.dart';
@@ -22,8 +21,6 @@ class CreatingOrderPage extends StatefulWidget {
 
 class _CreatingOrderPageState extends State<CreatingOrderPage> {
   OrderApi get orderApi => context.read();
-
-  Dio get dio => context.read();
 
   bool deli = false;
 
@@ -103,6 +100,7 @@ class _CreatingOrderPageState extends State<CreatingOrderPage> {
                                 },
                               );
                             }
+
                             await createOrder(abc);
                           },
                           child: const Text(

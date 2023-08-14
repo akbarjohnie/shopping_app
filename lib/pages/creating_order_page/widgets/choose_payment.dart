@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:shopping_app/data/repository/payment/payment_api.dart';
+import 'package:shopping_app/data/client/payment_api/payment_api.dart';
 
 class PaymentWidget extends StatefulWidget {
   const PaymentWidget({

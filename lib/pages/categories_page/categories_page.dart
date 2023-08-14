@@ -1,8 +1,8 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:shopping_app/data/models/catalog/get/categories/categories_model.dart';
-import 'package:shopping_app/data/repository/categories_repo/categories_api.dart';
+import 'package:shopping_app/data/client/categories_api/categories_api.dart';
+import 'package:shopping_app/models/catalog/get/categories/categories_model.dart';
 import 'package:shopping_app/pages/categories_page/widgets/category_card_widget.dart';
 
 @RoutePage()

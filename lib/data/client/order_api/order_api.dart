@@ -10,6 +10,6 @@ abstract class OrderApi {
     String baseUrl,
   }) = _OrderApi;
 
-  @POST('/order/order')
+  @POST('/order/order/')
   Future createOrder(@Body() orderRequest);
 }

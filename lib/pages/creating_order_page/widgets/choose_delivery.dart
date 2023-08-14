@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
-import 'package:shopping_app/data/repository/delivery/deliveries_api.dart';
+import 'package:shopping_app/data/client/delivery_api/deliveries_api.dart';
 
 typedef SwitchVisibility = Function(bool);
 

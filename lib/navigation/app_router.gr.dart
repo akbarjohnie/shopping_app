@@ -58,8 +58,7 @@ abstract class _$AppRouter extends RootStackRouter {
       );
     },
     CreatingOrderRoute.name: (routeData) {
-      final args = routeData.argsAs<CreatingOrderRouteArgs>(
-          orElse: () => const CreatingOrderRouteArgs());
+      final args = routeData.argsAs<CreatingOrderRouteArgs>();
       return AutoRoutePage<dynamic>(
         routeData: routeData,
         child: CreatingOrderPage(
@@ -225,7 +224,7 @@ class CategoriesRoute extends PageRouteInfo<void> {
 class CreatingOrderRoute extends PageRouteInfo<CreatingOrderRouteArgs> {
   CreatingOrderRoute({
     Key? key,
-    dynamic cart,
+    required List<List<dynamic>> cart,
     List<PageRouteInfo>? children,
   }) : super(
           CreatingOrderRoute.name,
@@ -245,12 +244,12 @@ class CreatingOrderRoute extends PageRouteInfo<CreatingOrderRouteArgs> {
 class CreatingOrderRouteArgs {
   const CreatingOrderRouteArgs({
     this.key,
-    this.cart,
+    required this.cart,
   });
 
   final Key? key;
 
-  final dynamic cart;
+  final List<List<dynamic>> cart;
 
   @override
   String toString() {
