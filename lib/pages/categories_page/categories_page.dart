@@ -20,10 +20,11 @@ class _CategoriesPageState extends State<CategoriesPage> {
     try {
       final data = categoriesApi.getCategories();
       return data;
-    } catch (e) {
+    } catch (e, stacktrace) {
       debugPrint(e.toString());
+      debugPrint(stacktrace.toString());
+      rethrow;
     }
-    return <CategoriesModel>[];
   }
 
   @override
@@ -32,7 +33,7 @@ class _CategoriesPageState extends State<CategoriesPage> {
       appBar: AppBar(
         toolbarHeight: 50,
         title: const Text(
-          'Подкатегория товаров',
+          'Категории товаров',
           style: TextStyle(
             fontSize: 16,
             height: 132 / 100,
@@ -44,8 +45,8 @@ class _CategoriesPageState extends State<CategoriesPage> {
       body: FutureBuilder(
         future: loadCategories(),
         builder: (context, snapshot) {
-          debugPrint(snapshot.toString());
-          if (snapshot.data != null) {
+          var data = snapshot.data;
+          if (data != null) {
             return GridView.builder(
               gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
                 maxCrossAxisExtent: 220,
@@ -54,12 +55,12 @@ class _CategoriesPageState extends State<CategoriesPage> {
                 crossAxisSpacing: 20,
                 mainAxisSpacing: 20,
               ),
-              itemCount: snapshot.data!.length,
+              itemCount: data.length,
               itemBuilder: (context, index) {
                 return CategoryCardWidget(
-                  id: snapshot.data![index].id,
-                  categoryName: snapshot.data![index].name,
-                  image: snapshot.data![index].picture,
+                  id: data[index].id,
+                  categoryName: data[index].name,
+                  image: data[index].picture,
                 );
               },
             );

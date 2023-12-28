@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shopping_app/data/client/products_api/products_api.dart';
+import 'package:shopping_app/models/catalog/post/products/products_model.dart';
 import 'package:shopping_app/pages/product_page/widget/product_widget.dart';
 
 @RoutePage()
@@ -15,15 +16,15 @@ class ProductsPage extends StatefulWidget {
 class _ProductsPageState extends State<ProductsPage> {
   ProductsApi get productsApi => context.read();
 
-  Future loadProducts() async {
+  Future<ProductsM> loadProducts() async {
     try {
-      var request = await productsApi.getProducts({});
-      return request['results'];
+      var request = await productsApi.getProducts();
+      return request;
     } catch (e, stacktrace) {
       debugPrint('Someting went wrong: $e');
       debugPrint(stacktrace.toString());
+      rethrow;
     }
-    return [];
   }
 
   @override
@@ -81,11 +82,11 @@ class _ProductsPageState extends State<ProductsPage> {
         body: FutureBuilder(
           future: loadProducts(),
           builder: (context, snapshot) {
-            if (snapshot.data != null) {
+            var data = snapshot.data;
+            if (data != null) {
               // debugPrint("snapshot ${snapshot.data}");
-              var data = snapshot.data;
               return GridView.builder(
-                itemCount: data.length,
+                itemCount: data.count as int,
                 gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
                   maxCrossAxisExtent: 220,
                   mainAxisExtent: 250,
@@ -94,25 +95,31 @@ class _ProductsPageState extends State<ProductsPage> {
                   mainAxisSpacing: 5,
                 ),
                 itemBuilder: (context, index) {
-                  return ProductCardWidget(
-                    id: data[index]["id"],
-                    categoryName: data[index]["name"],
-                    image: data[index]["picture"],
-                    brand: data[index]["brand"],
-                    price: data[index]["price"].toString().substring(
-                          0,
-                          data[index]["price"].toString().length - 2,
-                        ),
-                    oldPrice: data[index]["old_price"],
-                    rating: (data[index]['rating'] == 0 ||
-                            data[index]['rating'] == null)
-                        ? 0
-                        : double.tryParse(
-                            data[index]['rating'].toString().substring(0, 3),
+                  var res = data.results;
+                  if (res.isNotEmpty) {
+                    return ProductCardWidget(
+                      id: res[index].id,
+                      categoryName: res[index].name,
+                      image: res[index].picture,
+                      brand: res[index].brand,
+                      price: res[index].price.toString().substring(
+                            0,
+                            res[index].price.toString().length - 2,
                           ),
-                    article: data[index]['article'],
-                    discount: data[index]['discount'],
-                    reviewsCount: data[index]['reviews_count'],
+                      oldPrice: res[index].oldPrice,
+                      rating:
+                          (res[index].rating == 0 || res[index].rating == null)
+                              ? 0
+                              : double.tryParse(
+                                  res[index].rating.toString().substring(0, 3),
+                                ),
+                      article: res[index].article,
+                      discount: res[index].discount,
+                      reviewsCount: res[index].reviewsCount,
+                    );
+                  }
+                  return const Center(
+                    child: CircularProgressIndicator(),
                   );
                 },
               );

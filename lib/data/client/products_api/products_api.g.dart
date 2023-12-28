@@ -3,35 +3,6 @@
 part of 'products_api.dart';
 
 // **************************************************************************
-// JsonSerializableGenerator
-// **************************************************************************
-
-ProductsSerializerRequest _$ProductsSerializerRequestFromJson(
-        Map<String, dynamic> json) =>
-    ProductsSerializerRequest(
-      cityFias: json['cityFias'] as String?,
-      brand: json['brand'] as String?,
-      categoryIds: (json['categoryIds'] as List<dynamic>?)
-          ?.map((e) => e as int)
-          .toList(),
-      productIds:
-          (json['productIds'] as List<dynamic>?)?.map((e) => e as int).toList(),
-      search: json['search'] as String?,
-      sortBy: json['sortBy'] as String?,
-    );
-
-Map<String, dynamic> _$ProductsSerializerRequestToJson(
-        ProductsSerializerRequest instance) =>
-    <String, dynamic>{
-      'cityFias': instance.cityFias,
-      'brand': instance.brand,
-      'categoryIds': instance.categoryIds,
-      'productIds': instance.productIds,
-      'search': instance.search,
-      'sortBy': instance.sortBy,
-    };
-
-// **************************************************************************
 // RetrofitGenerator
 // **************************************************************************
 
@@ -48,28 +19,29 @@ class _ProductsApi implements ProductsApi {
   String? baseUrl;
 
   @override
-  Future<dynamic> getProducts(dynamic request) async {
+  Future<ProductsM> getProducts() async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    final _data = request;
-    final _result = await _dio.fetch(_setStreamType<dynamic>(Options(
+    final Map<String, dynamic>? _data = null;
+    final _result = await _dio
+        .fetch<Map<String, dynamic>>(_setStreamType<ProductsM>(Options(
       method: 'POST',
       headers: _headers,
       extra: _extra,
     )
-        .compose(
-          _dio.options,
-          '/catalog/products/',
-          queryParameters: queryParameters,
-          data: _data,
-        )
-        .copyWith(
-            baseUrl: _combineBaseUrls(
-          _dio.options.baseUrl,
-          baseUrl,
-        ))));
-    final value = _result.data;
+            .compose(
+              _dio.options,
+              '/catalog/products/',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(
+                baseUrl: _combineBaseUrls(
+              _dio.options.baseUrl,
+              baseUrl,
+            ))));
+    final value = ProductsM.fromJson(_result.data!);
     return value;
   }
 

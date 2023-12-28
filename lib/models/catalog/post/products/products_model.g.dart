@@ -6,8 +6,25 @@ part of 'products_model.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_ProductsModel _$$_ProductsModelFromJson(Map<String, dynamic> json) =>
-    _$_ProductsModel(
+_$_ProductsM _$$_ProductsMFromJson(Map<String, dynamic> json) => _$_ProductsM(
+      count: json['count'] as int?,
+      next: json['next'] as String?,
+      previous: json['previous'] as String?,
+      results: (json['results'] as List<dynamic>)
+          .map((e) => ProductModel.fromJson(e as Map<String, dynamic>))
+          .toList(),
+    );
+
+Map<String, dynamic> _$$_ProductsMToJson(_$_ProductsM instance) =>
+    <String, dynamic>{
+      'count': instance.count,
+      'next': instance.next,
+      'previous': instance.previous,
+      'results': instance.results,
+    };
+
+_$_ProductModel _$$_ProductModelFromJson(Map<String, dynamic> json) =>
+    _$_ProductModel(
       id: json['id'] as int?,
       price: json['price'] as String?,
       discount: json['discount'] as num?,
@@ -21,7 +38,7 @@ _$_ProductsModel _$$_ProductsModelFromJson(Map<String, dynamic> json) =>
       brand: json['brand'] as String,
     );
 
-Map<String, dynamic> _$$_ProductsModelToJson(_$_ProductsModel instance) =>
+Map<String, dynamic> _$$_ProductModelToJson(_$_ProductModel instance) =>
     <String, dynamic>{
       'id': instance.id,
       'price': instance.price,

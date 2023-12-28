@@ -40,7 +40,6 @@ class _CreatingOrderPageState extends State<CreatingOrderPage> {
         },
       );
       debugPrint(request);
-
       return request;
     } catch (e, stacktrace) {
       debugPrint('Someting went wrong: $e');
@@ -52,7 +51,7 @@ class _CreatingOrderPageState extends State<CreatingOrderPage> {
   @override
   Widget build(BuildContext context) {
     List<List> deliveryCart = widget.cart;
-    print(deliveryCart);
+    debugPrint(deliveryCart.toString());
     return Scaffold(
       appBar: AppBar(
         title: const Text('Оформление заказа'),
@@ -60,6 +59,7 @@ class _CreatingOrderPageState extends State<CreatingOrderPage> {
       ),
       body: SafeArea(
         child: FutureBuilder(
+          future: createOrder([]),
           builder: (context, snapshot) {
             final slivers = <Widget>[
               SliverList(

@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
-import 'package:json_annotation/json_annotation.dart';
 import 'package:retrofit/http.dart';
+import 'package:shopping_app/models/catalog/post/products/products_model.dart';
 
 part 'products_api.g.dart';
 
@@ -12,31 +12,5 @@ abstract class ProductsApi {
   }) = _ProductsApi;
 
   @POST('/catalog/products/')
-  Future getProducts(
-    @Body() request,
-  );
-}
-
-@JsonSerializable()
-class ProductsSerializerRequest {
-  ProductsSerializerRequest({
-    this.cityFias,
-    this.brand,
-    this.categoryIds,
-    this.productIds,
-    this.search,
-    this.sortBy,
-  });
-
-  String? cityFias;
-  String? brand;
-  List<int>? categoryIds;
-  List<int>? productIds;
-  String? search;
-  String? sortBy;
-
-  factory ProductsSerializerRequest.fromJson(Map<String, dynamic> json) =>
-      _$ProductsSerializerRequestFromJson(json);
-
-  Map<String, dynamic> toJson() => _$ProductsSerializerRequestToJson(this);
+  Future<ProductsM> getProducts();
 }

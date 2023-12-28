@@ -21,8 +21,6 @@ class _CategoryCardWidgetState extends State<CategoryCardWidget> {
 
   @override
   Widget build(BuildContext context) {
-    // final themeData = Theme.of(context);
-
     return Center(
       child: SizedBox(
         width: 164,
@@ -66,34 +64,6 @@ class _CategoryCardWidgetState extends State<CategoryCardWidget> {
                 fontSize: 12,
               ),
             ),
-            // Row(
-            //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            //   children: [
-            //     Column(
-            //       crossAxisAlignment: CrossAxisAlignment.start,
-            //       children: [
-            //         Text(
-            //           '1 990 ₽',
-            //           style: themeData.textTheme.bodyMedium,
-            //         ),
-            //         Text(
-            //           '2 990 ₽',
-            //           style: themeData.textTheme.bodySmall,
-            //         )
-            //       ],
-            //     ),
-            //     IconButton(
-            //       onPressed: () {},
-            //       icon: const Icon(
-            //         Icons.card_travel_rounded,
-            //       ),
-            //       color: const Color(0xFFFFFFFF),
-            //       style: ElevatedButton.styleFrom(
-            //         backgroundColor: const Color(0xFF000000),
-            //       ),
-            //     ),
-            //   ],
-            // ),
           ],
         ),
       ),

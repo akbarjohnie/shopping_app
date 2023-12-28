@@ -5,8 +5,21 @@ part 'products_model.freezed.dart';
 part 'products_model.g.dart';
 
 @freezed
-abstract class ProductsModel with _$ProductsModel {
-  const factory ProductsModel({
+abstract class ProductsM with _$ProductsM {
+  const factory ProductsM({
+    int? count,
+    String? next,
+    String? previous,
+    required List<ProductModel> results,
+  }) = _ProductsM;
+
+  factory ProductsM.fromJson(Map<String, dynamic> json) =>
+      _$ProductsMFromJson(json);
+}
+
+@freezed
+abstract class ProductModel with _$ProductModel {
+  const factory ProductModel({
     int? id,
     String? price,
     num? discount,
@@ -18,8 +31,8 @@ abstract class ProductsModel with _$ProductsModel {
     num? rating,
     int? reviewsCount,
     required String brand,
-  }) = _ProductsModel;
+  }) = _ProductModel;
 
-  factory ProductsModel.fromJson(Map<String, dynamic> json) =>
-      _$ProductsModelFromJson(json);
+  factory ProductModel.fromJson(Map<String, dynamic> json) =>
+      _$ProductModelFromJson(json);
 }
